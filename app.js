@@ -1,126 +1,33 @@
-// (function(){
-//    // Global variables
-//    var canvas, ctx, w, h, player1X, player2X, playerY, radius, backImg, angle1, angle2, currIndex1, currIndex2;
 
-//    //init function
-//    function init (){
 
-//       canvas = document.getElementById("tankWarsCanvas");
-//       ctx = canvas.getContext("2d");
+var turn, team, moveStep, angleStep;
 
-//       canvas.height = window.innerHeight;
-//       canvas.width = window.innerWidth;
-//       w = canvas.width;
-//       h = canvas.height;
+function init (){
 
-//       ////////////////////
-
-//       player1X = w/4;
-// 		player2X = 3*(w/4);
-// 		centerY = h-200;
-//       radius = 10;
-//       angle1 = 0;
-//       angle2 = Math.PI;
-//       currIndex1 = {x: 0, y: 0};
-//       currIndex2 = {x: 0, y: 0};
-//       addBackground();
-//     }
+    canvas = document.getElementById("tankWarsCanvas");
+    ctx = canvas.getContext("2d");
     
-//     backImg = new Image();
-
-//     backImg.onload = function() {
-//       ctx.drawImage(backImg, 0, 0, w, h);
-//       drawPlayer1(player1X, centerY, angle1);
-//       drawLayout();
-
-//     }
-
-//     function addBackground() {
-// 		backImg.src = "assets/bg.png";
-//    }
-   
-//    function addTank() {
-// 		backImg.src = "assets/tank.png";
-// 	}
-
-
-//     // Draw Layout
-//     function drawLayout() {
-// 		ctx.strokeStyle = "black";
-// 		ctx.lineWidth = 1;
-// 		ctx.strokeRect(0, 0, w, h);
-// 		ctx.strokeStyle = "#929E7F";
-//       ctx.lineWidth = 80;
-// 		ctx.beginPath();
-// 		ctx.moveTo(w/2, h);
-// 		ctx.lineTo(w/2, h-500);
-// 		ctx.stroke();
-//    }
-   
-//    // Draw Player 1
-
-//    function drawPlayer1(x, y, angle) {
-// 		currIndex1.x = x + 35*Math.cos(angle);
-// 		currIndex1.y = y - 35*Math.sin(angle);
-//       ctx.strokeStyle = "#869371";
-//       ctx.translate(x, y);
-//       ctx.rotate(0.5);
-//       ctx.translate(-x, -y);
-// 		ctx.beginPath();
-// 		ctx.moveTo(x,y);
-// 		ctx.lineTo(currIndex1.x,currIndex1.y);
-// 		ctx.stroke();
-// 		var grd = ctx.createRadialGradient(x+8, y-8, 2, x, y, radius);
-// 		grd.addColorStop(0, '#869371');
-// 		grd.addColorStop(1, '#869371');
-// 		ctx.beginPath();
-// 		ctx.arc(x, y, radius, 0, 2*Math.PI, false);
-// 		ctx.fillStyle = grd;
-//       ctx.fill();
-//       ctx.setTransform(1, 0, 0, 1, 0, 0);
-// 	}
-
-     
-//     // Call the init function
-//     init();
-// }());
-
-// console.log("hello");
-
-canvas = document.getElementById("tankWarsCanvas");
-ctx = canvas.getContext("2d");
-
-canvas.height = 800;
-canvas.width = 1500;
-w = canvas.width;
-h = canvas.height;
-
-
-///////// Separator
-
-
-x = 750;
-function obstacle1 () {
-   
-    requestAnimationFrame(obstacle1);
-
-    ctx.fillStyle = "#697752";
-    ctx.fillRect(x, 450, 30, 800);
-    // ctx.fillStyle = "#697752";
-    // ctx.fillRect(750, 50, 30, 350);
-
-    x += 1;
+    canvas.height = 800;
+    canvas.width = 1500;
+    w = canvas.width;
+    h = canvas.height;
     
+    window.onkeydown = moveTank1;
+
+    turn = 0;
+    team ="none";
+    moveStep = 4;
+    angleStep = Math.PI/40;
 
 
-};
+}
 
-obstacle1 ();
-
-
-
+init()
 
 ///////// Tank 1
+
+
+
 
 var addCannon1 = new Image();
 addCannon1.onload = function () {
@@ -134,9 +41,25 @@ addTank1.onload = function () {
 }
 addTank1.src = "assets/tank.png";
 
+var tank1x = 50;
+
+var angleCannon1 = 0;
+
+function tank1 () {
+    
+    ctx.translate(tank1x + 150, 700)
+    ctx.rotate(angleCannon1)
+    ctx.translate(-tank1x - 150, -700)
+    ctx.drawImage(addCannon1, tank1x + 150, 700);
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+
+    ctx.drawImage(addTank1, tank1x, 683);
 
 
-///////// Tank 2
+}
+
+
+///////////////////////////////////////////// Tank 2
 
 var addCannon2 = new Image();
 addCannon2.onload = function () {
@@ -150,10 +73,102 @@ addTank2.onload = function () {
 }
 addTank2.src = "assets/tank2.png";
 
+var angleCannon2 = 0;
+
+var tank2x = 1150;
+
+function tank2 () {
+
+    ctx.translate(tank2x + 15, 700)
+    ctx.rotate(angleCannon2)
+    ctx.translate(-tank2x - 15, -700)
+    ctx.drawImage(addCannon2, tank2x + 15, 700);
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+
+    ctx.drawImage(addTank2, tank2x, 683);
+}
 
 
+///////////////////////////////////////////// Obstacle
+
+var obstacleY = 400; // y position
+var obstacleSpeed = 5; // y speed
+
+function obstacle1 () {
+
+    ctx.fillStyle = "#73815C";
+    ctx.fillRect(750, obstacleY, 30, 800);
+
+    if (obstacleY > 400 || obstacleY < 0){
+
+        obstacleSpeed = -obstacleSpeed;
+    }
+    obstacleY += obstacleSpeed;
+}
+
+///////////////////////////////////////////// Motion
+
+function moveTank1 (e) {
+    e.stopImmediatePropagation();
+    var keyCode = e.which;
+    if(keyCode == 37) { // Left
+        if(!turn) {
+            if(tank1x > 0) {
+                tank1x = tank1x - moveStep;
+            }
+        } else {
+            if(tank2x > 502) {
+                tank2x = tank2x - moveStep;
+            }
+        }
+
+    } else if(keyCode == 39) { // Right
+        if(!turn) {
+            if(tank1x < 498) {
+                tank1x = tank1x + moveStep;
+            }
+        } else {
+            if(tank2x < 999) {
+                tank2x = tank2x + moveStep;
+            }
+        }
+
+    }else if(keyCode == 38) { 
+        if(!turn) {
+            if(angleCannon1 <= 0){
+                angleCannon1 -= angleStep;
+            }
+                
+        } else {
+            if(angleCannon2 <= 0){
+                angleCannon2 -= angleStep;
+            }
+        }
+    }else if(keyCode == 40) { 
+        if(!turn) {
+            if(angleCannon1 <= 90 * (Math.PI/180)){
+                angleCannon1 += angleStep;
+            }
+            
+        } else {
+            if(angleCannon2 <= 90 * (Math.PI/180)){
+                angleCannon2 += angleStep;
+            } 
+        }
+    }     
+}
 
 
+///////////////////////////////////////////// Draw everything
+
+function drawEverything() {
+    ctx.clearRect(0,0, 1500, 800);
+    obstacle1();
+    tank1();
+    tank2();
+}
+
+setInterval(drawEverything, 10)
 
 
 
