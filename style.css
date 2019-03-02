@@ -1,0 +1,69 @@
+
+
+
+body{
+	background-color: #ACB799;
+	margin: 0;
+}
+
+
+canvas {
+	z-index: 1;
+}
+
+#Player1Score {
+	color: #4D573D;
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+	font-size: 300%;
+	position: absolute;
+	top: 50px;
+	left: 480px;
+	z-index: 2;
+	font-weight: 700;
+}
+
+#Player2Score {
+	color: #4D573D;
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+	font-size: 300%;
+	position: absolute;
+	top: 50px;
+	left: 1000px;
+	z-index: 2;
+	font-weight: 700;
+	
+}
+
+#PlayerTeam {
+	color: #fff;
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+	font-size: 200%;
+	position: absolute;
+	top: 60px;
+	left: 500px;
+	transform: translateX(-50%);
+	z-index: 2;
+}
+
+#WhoseTurn {
+	color: #fff;
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+	font-size: 200%;
+	position: absolute;
+	top: 110px;
+	left: 500px;
+	transform: translateX(-50%);
+	z-index: 2;
+}
+
+#Controls {
+	color: #fff;
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+	font-weight: 500;
+	position: absolute;
+	max-width: 1000px;
+	top: 10px;
+	left: 500px;
+	transform: translateX(-50%);
+	z-index: 2;
+}
