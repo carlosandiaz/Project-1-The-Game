@@ -1,6 +1,8 @@
-var turn, team, moveStep, angleStep, dirX, dirY, currIndex1, moveIndex1, moveIndex2, asteroidRadius;
+var turn, team, moveStep, angleStep, dirX, dirY, currIndex1, moveIndex1, moveIndex2, asteroidRadius, cannonSound;
+
 
 function init() {
+
 
     canvas = document.getElementById("tankWarsCanvas");
     ctx = canvas.getContext("2d");
@@ -50,6 +52,61 @@ function init() {
 
 init();
 
+///////////////////////////////////////////// Sounds
+
+var cannonSound = new Audio("assets/sound/cannon-sound-effect.mp3"); 
+
+function playCannon() { 
+    cannonSound.play(); 
+    cannonSound.volume = 0.3;
+  } 
+
+var loopSound = new Audio("assets/sound/battle-loop.mp3"); 
+
+function playloopSound() { 
+    loopSound.loop = true;
+    loopSound.play(); 
+    loopSound.volume = 0.1;
+  } 
+
+function pauseCannon() { 
+    cannonSound.pause(); 
+  }
+
+var wallImpact1 = new Audio("assets/sound/wall-impact1.mp3"); 
+
+  function playwallImpact1() { 
+      wallImpact1.play(); 
+      wallImpact1.volume = 0.1;
+    } 
+
+var cannonAngle = new Audio("assets/sound/cannon-angle.mp3"); 
+
+function playCannonAngle() { 
+    cannonAngle .play(); 
+    cannonAngle.volume = 0.15;
+  } 
+
+var tankMove = new Audio("assets/sound/tank-move.mp3"); 
+
+function playtankMove() { 
+    tankMove.play(); 
+    tankMove.volume = 0.2;
+  } 
+
+var tankHit = new Audio("assets/sound/explosion.mp3"); 
+
+function playTankHit() { 
+    tankHit.play(); 
+    tankHit.volume = 0.5;
+  } 
+
+function pauseTankHit() { 
+    tankHit.pause(); 
+  }
+
+///////////////////////////////////////////// Reinit
+
 function reinit() {
     dirX = 5;
     dirY = 5;
@@ -61,13 +118,68 @@ function reinit() {
         x: -10,
         y: -10
     };
+
     if (turn) {
-        $('#WhoseTurn').text('Player 1\'s Turn');
-    } else {
         $('#WhoseTurn').text('Player 2\'s Turn');
+    } else {
+        $('#WhoseTurn').text('Player 1\'s Turn');
     }
     return;
 }
+
+///////////////////////////////////////////// Explosion Sprite
+
+
+
+var explosionAnimX = 0;
+var explosionAnimY = 0;
+var displayExplosion = false;
+var indexExplosion = 0;
+var listImages = [
+
+    "assets/animation/frame_00.png",
+    "assets/animation/frame_01.png",
+    "assets/animation/frame_02.png",
+    "assets/animation/frame_03.png",
+    "assets/animation/frame_04.png",
+    "assets/animation/frame_05.png",
+    "assets/animation/frame_06.png",
+    "assets/animation/frame_07.png",
+    "assets/animation/frame_08.png",
+    "assets/animation/frame_09.png",
+    "assets/animation/frame_10.png",
+    "assets/animation/frame_11.png",
+    "assets/animation/frame_12.png",
+    "assets/animation/frame_13.png",
+    "assets/animation/frame_14.png",
+    "assets/animation/frame_15.png"
+
+];
+var explosionAnim = listImages.map((url) => {
+    let img = new Image();
+    img.src = url;
+    return img;
+})
+
+function explosionAnimFun () {
+   
+
+    if (displayExplosion) {
+    
+        ctx.drawImage(explosionAnim[Math.floor(indexExplosion++ / 30)], explosionAnimX, explosionAnimY);
+    }
+    if (Math.floor(indexExplosion++ / 30) >= 15) {
+        explosionAnimX = 0;
+        explosionAnimY = 0;
+        displayExplosion = false;
+        indexExplosion = 0;
+    }
+}
+
+
+
+
+
 
 
 ///////////////////////////////////////////// Tank 1
@@ -170,10 +282,13 @@ function moveTank(e) {
         if (!turn) {
             if (tank1x > 0) {
                 tank1x = tank1x - moveStep;
+                playtankMove();
             }
         } else {
             if (tank2x > 780) {
                 tank2x = tank2x - moveStep;
+                playtankMove();
+                
             }
         }
 
@@ -181,32 +296,38 @@ function moveTank(e) {
         if (!turn) {
             if (tank1x < 498) {
                 tank1x = tank1x + moveStep;
+                playtankMove();
             }
         } else {
             if (tank2x < 1250) {
                 tank2x = tank2x + moveStep;
+                playtankMove();
             }
         }
 
     } else if (keyCode == 38) {
         if (!turn) {
             if (angleCannon1 <= 0 && angleCannon1 > -Math.PI / 2) {
+                playCannonAngle();
                 angleCannon1 -= angleStep;
             }
 
         } else {
             if (angleCannon2 >= 0 && angleCannon2 < Math.PI / 2) {
+                playCannonAngle();
                 angleCannon2 += angleStep;
             }
         }
     } else if (keyCode == 40) {
         if (!turn) {
             if (angleCannon1 <= 0 && angleCannon1 > - Math.PI / 2) {
+                playCannonAngle();
                 angleCannon1 += angleStep;
             }
 
         } else {
             if (angleCannon2 >= 0 && angleCannon2 < Math.PI / 2) {
+                playCannonAngle();
                 angleCannon2 -= angleStep;
             }
         }
@@ -218,6 +339,7 @@ function moveTank(e) {
                 x: tank1x + 150 + 85 * Math.cos(angleCannon1),
                 y: 712 + 85 * Math.sin(angleCannon1)
             });
+            playCannon();
 
         } else {
 
@@ -225,10 +347,12 @@ function moveTank(e) {
                 x: tank2x + 100 - 85 * Math.cos(angleCannon2),
                 y: 712 - 85 * Math.sin(angleCannon2)
             });
+            playCannon();
 
         }
     }
 }
+
 
 ///////////////////////////////////////////// Collision Detection cannonball and tank
 
@@ -261,31 +385,18 @@ function detectCollision(x1, y1, r1, x2, y2, r2) {
 
 
 
-var explosionAnimX = 0;
-var explosionAnimY = 0;
-
-var explosionAnim1 = new Image();
-
-function explosionAnimFun () {
-
-    ctx.drawImage(explosionAnim1, explosionAnimX, explosionAnimY);
-    explosionAnim1.src = "assets/explosion.gif"
-}
-
 
 ///////////////////////////////////////////// Collision Detection cannonball and boundary
 
 function launchCannonball(index) {
 
     if (detectCollision(index.x, index.y, ballRadius, tank1x+130, tank1y+90, radius)) {
-
-        explosionAnimX = tank1x+130;
-
-        explosionAnimY = tank1y+90;
-
-        explosionAnimFun();
         
-        setInterval(explosionAnimFun, 10);
+        playTankHit();
+        displayExplosion = true;
+        indexExplosion = 0;
+        explosionAnimX = tank1x;
+        explosionAnimY = tank1y-300;
 
         score.P2 += 1;
         updateScoreP2();
@@ -294,6 +405,14 @@ function launchCannonball(index) {
         return;
 
     } else if (detectCollision(index.x, index.y, ballRadius, tank2x+125, tank2y+90, radius, explosionAnimX, explosionAnimY)) {
+
+        playTankHit();
+
+        displayExplosion = true;
+        indexExplosion = 0;
+        explosionAnimX = tank2x;
+        explosionAnimY = tank2y-300;
+
 
         score.P1 += 1;
         updateScoreP1();
@@ -304,12 +423,16 @@ function launchCannonball(index) {
 
     if (index.x >= (w / 2) - 25 && index.x <= (w / 2) + 25 && index.y >= h - 300 && index.y <= h) {
         dirX = -dirX
+        playwallImpact1();
     } else if (index.x < 0) {
         dirX = -dirX;
+        playwallImpact1();
     } else if (index.x > w - 1) {
         dirX = -dirX;
+        playwallImpact1();
     } else if (index.y < 0) {
         dirY = -dirY;
+        playwallImpact1();
     } else if (index.y > h - 1) {
         turn = 1 - turn;
         reinit();
@@ -353,7 +476,7 @@ function drawEverything() {
     obstacle3();
     tank1();
     tank2();
-    //explosionAnimFun();
+    playloopSound();
     //testCollision1(); ////// Test Collision
     //testCollision2();
     if (!turn && moveIndex1.x != -10 && moveIndex1.y != -10) {
@@ -361,6 +484,7 @@ function drawEverything() {
     } else if (turn && moveIndex2.x != -10 && moveIndex2.y != -10) {
         launchCannonball(moveIndex2);
     }
+    explosionAnimFun();
 
 }
 

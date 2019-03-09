@@ -5,17 +5,21 @@
   <meta name="description" content="Tank Wars">
   <link rel="stylesheet" type="text/css" href="style.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://cdn.pubnub.com/sdk/javascript/pubnub.4.21.7.js"></script>
+ <!-- Include the PubNub Library -->
+<script src="https://cdn.pubnub.com/sdk/javascript/pubnub.4.21.7.js"></script>
   <link href="https://fonts.googleapis.com/css?family=East+Sea+Dokdo" rel="stylesheet">
 </head>
 <body>
   <div id="Title">Tank Wars</div>
   <div id="Player1Score">0</div>
   <div id="Player2Score">0</div>
- 
+  <div id="PlayerTeam"></div>
+  <div id="WhoseTurn"></div>
+  
+  <audio src="assets/sound/cannon.wav"></audio>
   <canvas id="tankWarsCanvas" width="1500" height="800"
     style="background: url(assets/bg1.png) no-repeat center center;">
   </canvas>
-  <script type="text/javascript" src="app.js"></script>
+  <script type="text/javascript" src="app.js" id="cannon-sound"></script>
 </body>
 </html>

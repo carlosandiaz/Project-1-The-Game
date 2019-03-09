@@ -2,13 +2,18 @@
 
 
 body{
-	background-color: #ACB799;
+	background-color: #A8B593;
 	margin: 0;
 }
 
+#tankWarsCanvas{
+	margin-top : 75px;
 
+}
 canvas {
-	z-index: 1;
+	margin-top: 200px;
+    margin: auto;
+    display: block;
 }
 
 #Player1Score {
@@ -16,8 +21,8 @@ canvas {
 	font-family: 'East Sea Dokdo', cursive;
 	font-size: 500%;
 	position: absolute;
-	top: 100px;
-	left: 480px;
+	top: 150px;
+	left: 570px;
 	z-index: 2;
 	font-weight: 700;
 }
@@ -27,8 +32,8 @@ canvas {
 	font-family: 'East Sea Dokdo', cursive;
 	font-size: 500%;
 	position: absolute;
-	top: 100px;
-	left: 1000px;
+	top: 150px;
+	left: 1090px;
 	z-index: 2;
 	font-weight: 700;
 	
@@ -39,8 +44,8 @@ canvas {
 	font-family: 'East Sea Dokdo', cursive;
 	font-size: 400%;
 	position: absolute;
-	top: 10px;
-	left: 675px;
+	top: 80px;
+	left: 750px;
 	z-index: 2;
 	font-weight: 700;
 	
@@ -50,19 +55,20 @@ canvas {
 	color: #fff;
 	font-family: 'East Sea Dokdo', cursive;
 	position: absolute;
-	top: 60px;
-	left: 500px;
+	top: 160px;
+	left: 450px;
 	transform: translateX(-50%);
 	z-index: 2;
+	font-weight: 800;
 }
 
 #WhoseTurn {
-	color: #fff;
+	color: #4D573D;
 	font-family: 'East Sea Dokdo', cursive;
-	font-size: 200%;
+	font-size: 250%;
 	position: absolute;
-	top: 110px;
-	left: 500px;
+	top: 220px;
+	left: 850px;
 	transform: translateX(-50%);
 	z-index: 2;
 }
@@ -78,4 +84,5 @@ canvas {
 	transform: translateX(-50%);
 	z-index: 2;
 }
+
 
