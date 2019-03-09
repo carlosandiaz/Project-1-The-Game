@@ -13,10 +13,10 @@ canvas {
 
 #Player1Score {
 	color: #4D573D;
-	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-	font-size: 300%;
+	font-family: 'East Sea Dokdo', cursive;
+	font-size: 500%;
 	position: absolute;
-	top: 50px;
+	top: 100px;
 	left: 480px;
 	z-index: 2;
 	font-weight: 700;
@@ -24,11 +24,23 @@ canvas {
 
 #Player2Score {
 	color: #4D573D;
-	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-	font-size: 300%;
+	font-family: 'East Sea Dokdo', cursive;
+	font-size: 500%;
 	position: absolute;
-	top: 50px;
+	top: 100px;
 	left: 1000px;
+	z-index: 2;
+	font-weight: 700;
+	
+}
+
+#Title {
+	color: #4D573D;
+	font-family: 'East Sea Dokdo', cursive;
+	font-size: 400%;
+	position: absolute;
+	top: 10px;
+	left: 675px;
 	z-index: 2;
 	font-weight: 700;
 	
@@ -36,8 +48,7 @@ canvas {
 
 #PlayerTeam {
 	color: #fff;
-	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-	font-size: 200%;
+	font-family: 'East Sea Dokdo', cursive;
 	position: absolute;
 	top: 60px;
 	left: 500px;
@@ -47,7 +58,7 @@ canvas {
 
 #WhoseTurn {
 	color: #fff;
-	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+	font-family: 'East Sea Dokdo', cursive;
 	font-size: 200%;
 	position: absolute;
 	top: 110px;
@@ -58,7 +69,7 @@ canvas {
 
 #Controls {
 	color: #fff;
-	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+	font-family: 'East Sea Dokdo', cursive;
 	font-weight: 500;
 	position: absolute;
 	max-width: 1000px;
@@ -67,3 +78,4 @@ canvas {
 	transform: translateX(-50%);
 	z-index: 2;
 }
+

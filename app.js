@@ -19,18 +19,25 @@ function init() {
         x: -10,
         y: -10
     };
-    ballRadius = 6;
+    ballRadius = 8;
+
     dirX = 5;
     dirY = 5;
+
     score = {
         P1: 0,
         P2: 0
     };
     turn = 0;
-    radius = 40;
+
+    radius = 110;
+
     team = "none";
+
     moveStep = 4;
+
     angleStep = Math.PI / 40;
+
     score = {
         P1: 0,
         P2: 0
@@ -232,18 +239,62 @@ function detectCollision(x1, y1, r1, x2, y2, r2) {
     return false;
 }
 
+
+///////////////////////////////////////////// Test Collision
+
+// function testCollision1(){
+
+//     ctx.beginPath();
+//     ctx.arc(180, 790, 110, 0, 2 * Math.PI);
+//     ctx.stroke();
+
+// };
+
+
+// function testCollision2(){
+
+//     ctx.beginPath();
+//     ctx.arc(1315, 790, 110, 0, 2 * Math.PI);
+//     ctx.stroke();
+
+// };
+
+
+
+var explosionAnimX = 0;
+var explosionAnimY = 0;
+
+var explosionAnim1 = new Image();
+
+function explosionAnimFun () {
+
+    ctx.drawImage(explosionAnim1, explosionAnimX, explosionAnimY);
+    explosionAnim1.src = "assets/explosion.gif"
+}
+
+
 ///////////////////////////////////////////// Collision Detection cannonball and boundary
 
 function launchCannonball(index) {
 
-    if (detectCollision(index.x, index.y, ballRadius, tank1x + 100, tank1y, radius)) {
+    if (detectCollision(index.x, index.y, ballRadius, tank1x+130, tank1y+90, radius)) {
+
+        explosionAnimX = tank1x+130;
+
+        explosionAnimY = tank1y+90;
+
+        explosionAnimFun();
+        
+        setInterval(explosionAnimFun, 10);
+
         score.P2 += 1;
         updateScoreP2();
         turn = 1 - turn;
         reinit();
         return;
-        
-    } else if (detectCollision(index.x, index.y, ballRadius, tank2x + 100, tank2y, radius)) {
+
+    } else if (detectCollision(index.x, index.y, ballRadius, tank2x+125, tank2y+90, radius, explosionAnimX, explosionAnimY)) {
+
         score.P1 += 1;
         updateScoreP1();
         turn = 1 - turn;
@@ -278,20 +329,20 @@ function launchCannonball(index) {
         ctx.arc(moveIndex2.x, moveIndex2.y, ballRadius, 0, 2 * Math.PI, false);
     }
 
-    ctx.fillStyle = "#4C4C42";
+    ctx.fillStyle = "#374029";
     ctx.fill();
-    
+
 
 }
 
-	// Update score
-	function updateScoreP1() {
-		$('#Player1Score').text(Number($('#Player1Score').text()) + 1);
-	}
+// Update score
+function updateScoreP1() {
+    $('#Player1Score').text(Number($('#Player1Score').text()) + 1);
+}
 
-	function updateScoreP2() {
-		$('#Player2Score').text(Number($('#Player2Score').text()) + 1);
-	}
+function updateScoreP2() {
+    $('#Player2Score').text(Number($('#Player2Score').text()) + 1);
+}
 
 ///////////////////////////////////////////// Draw everything
 
@@ -302,6 +353,9 @@ function drawEverything() {
     obstacle3();
     tank1();
     tank2();
+    //explosionAnimFun();
+    //testCollision1(); ////// Test Collision
+    //testCollision2();
     if (!turn && moveIndex1.x != -10 && moveIndex1.y != -10) {
         launchCannonball(moveIndex1);
     } else if (turn && moveIndex2.x != -10 && moveIndex2.y != -10) {
