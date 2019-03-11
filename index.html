@@ -1,25 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <title>Tank Wars</title>
   <meta name="description" content="Tank Wars">
   <link rel="stylesheet" type="text/css" href="style.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
- <!-- Include the PubNub Library -->
-<script src="https://cdn.pubnub.com/sdk/javascript/pubnub.4.21.7.js"></script>
   <link href="https://fonts.googleapis.com/css?family=East+Sea+Dokdo" rel="stylesheet">
 </head>
-<body>
+
+<body onload="popupON()">
   <div id="Title">Tank Wars</div>
   <div id="Player1Score">0</div>
   <div id="Player2Score">0</div>
   <div id="PlayerTeam"></div>
   <div id="WhoseTurn"></div>
-  
+  <div id="overlay"></div>
+  <div id="Winner"></div>
+  <button class="main-button" type="button" value="Refresh Page" onclick="window.location.reload()">
+    Play again
+  </button>
+
   <audio src="assets/sound/cannon.wav"></audio>
-  <canvas id="tankWarsCanvas" width="1500" height="800"
-    style="background: url(assets/bg1.png) no-repeat center center;">
+  <canvas id="tankWarsCanvas" width="1500" height="800" style="background: url(assets/bg1.png) no-repeat center center;">
   </canvas>
   <script type="text/javascript" src="app.js" id="cannon-sound"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </body>
+
 </html>

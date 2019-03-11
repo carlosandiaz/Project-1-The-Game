@@ -1,6 +1,18 @@
 var turn, team, moveStep, angleStep, dirX, dirY, currIndex1, moveIndex1, moveIndex2, asteroidRadius, cannonSound;
 
 
+function popupON() {
+
+    swal({
+        title: "Tank Wars",
+        text: "First tank to score 10 attacks wins!",
+        button: "Let's go!",
+
+    });
+
+};
+
+
 function init() {
 
 
@@ -54,62 +66,64 @@ init();
 
 ///////////////////////////////////////////// Sounds
 
-var cannonSound = new Audio("assets/sound/cannon-sound-effect.mp3"); 
+var cannonSound = new Audio("assets/sound/cannon-sound-effect.mp3");
 
-function playCannon() { 
-    cannonSound.play(); 
+function playCannon() {
+    cannonSound.play();
     cannonSound.volume = 0.3;
-  } 
+}
 
-var loopSound = new Audio("assets/sound/battle-loop.mp3"); 
+var loopSound = new Audio("assets/sound/battle-loop.mp3");
 
-function playloopSound() { 
-    loopSound.loop = true;
-    loopSound.play(); 
+function playloopSound() {
+    loopSound.play();
+    //loopSound.loop = true; 
     loopSound.volume = 0.1;
-  } 
+}
 
-function pauseCannon() { 
-    cannonSound.pause(); 
-  }
+function pauseCannon() {
+    cannonSound.pause();
+}
 
-var wallImpact1 = new Audio("assets/sound/wall-impact1.mp3"); 
+var wallImpact1 = new Audio("assets/sound/wall-impact1.mp3");
 
-  function playwallImpact1() { 
-      wallImpact1.play(); 
-      wallImpact1.volume = 0.1;
-    } 
+function playwallImpact1() {
+    wallImpact1.play();
+    wallImpact1.volume = 0.1;
+}
 
-var cannonAngle = new Audio("assets/sound/cannon-angle.mp3"); 
+var cannonAngle = new Audio("assets/sound/cannon-angle.mp3");
 
-function playCannonAngle() { 
-    cannonAngle .play(); 
+function playCannonAngle() {
+    cannonAngle.play();
     cannonAngle.volume = 0.15;
-  } 
+}
 
-var tankMove = new Audio("assets/sound/tank-move.mp3"); 
+var tankMove = new Audio("assets/sound/tank-move.mp3");
 
-function playtankMove() { 
-    tankMove.play(); 
+function playtankMove() {
+    tankMove.play();
     tankMove.volume = 0.2;
-  } 
+}
 
-var tankHit = new Audio("assets/sound/explosion.mp3"); 
+var tankHit = new Audio("assets/sound/explosion.mp3");
 
-function playTankHit() { 
-    tankHit.play(); 
+function playTankHit() {
+    tankHit.play();
     tankHit.volume = 0.5;
-  } 
+}
 
-function pauseTankHit() { 
-    tankHit.pause(); 
-  }
+function pauseTankHit() {
+    tankHit.pause();
+}
 
 ///////////////////////////////////////////// Reinit
 
 function reinit() {
+
     dirX = 5;
     dirY = 5;
+
     moveIndex1 = {
         x: -10,
         y: -10
@@ -120,9 +134,9 @@ function reinit() {
     };
 
     if (turn) {
-        $('#WhoseTurn').text('Player 2\'s Turn');
+        $('#WhoseTurn').text('Tank 2\'s Turn');
     } else {
-        $('#WhoseTurn').text('Player 1\'s Turn');
+        $('#WhoseTurn').text('Tank 1\'s Turn');
     }
     return;
 }
@@ -161,11 +175,11 @@ var explosionAnim = listImages.map((url) => {
     return img;
 })
 
-function explosionAnimFun () {
-   
+function explosionAnimFun() {
+
 
     if (displayExplosion) {
-    
+
         ctx.drawImage(explosionAnim[Math.floor(indexExplosion++ / 30)], explosionAnimX, explosionAnimY);
     }
     if (Math.floor(indexExplosion++ / 30) >= 15) {
@@ -175,12 +189,6 @@ function explosionAnimFun () {
         indexExplosion = 0;
     }
 }
-
-
-
-
-
-
 
 ///////////////////////////////////////////// Tank 1
 
@@ -247,7 +255,6 @@ function tank2() {
 }
 
 
-
 ///////////////////////////////////////////// Obstacle
 
 var obstacleY = 500; // y position
@@ -288,7 +295,7 @@ function moveTank(e) {
             if (tank2x > 780) {
                 tank2x = tank2x - moveStep;
                 playtankMove();
-                
+
             }
         }
 
@@ -390,13 +397,13 @@ function detectCollision(x1, y1, r1, x2, y2, r2) {
 
 function launchCannonball(index) {
 
-    if (detectCollision(index.x, index.y, ballRadius, tank1x+130, tank1y+90, radius)) {
-        
+    if (detectCollision(index.x, index.y, ballRadius, tank1x + 130, tank1y + 90, radius)) {
+
         playTankHit();
         displayExplosion = true;
         indexExplosion = 0;
         explosionAnimX = tank1x;
-        explosionAnimY = tank1y-300;
+        explosionAnimY = tank1y - 300;
 
         score.P2 += 1;
         updateScoreP2();
@@ -404,14 +411,14 @@ function launchCannonball(index) {
         reinit();
         return;
 
-    } else if (detectCollision(index.x, index.y, ballRadius, tank2x+125, tank2y+90, radius, explosionAnimX, explosionAnimY)) {
+    } else if (detectCollision(index.x, index.y, ballRadius, tank2x + 125, tank2y + 90, radius, explosionAnimX, explosionAnimY)) {
 
         playTankHit();
 
         displayExplosion = true;
         indexExplosion = 0;
         explosionAnimX = tank2x;
-        explosionAnimY = tank2y-300;
+        explosionAnimY = tank2y - 300;
 
 
         score.P1 += 1;
@@ -458,14 +465,37 @@ function launchCannonball(index) {
 
 }
 
-// Update score
+///////////////////////////////////////////// Update score
+
 function updateScoreP1() {
+
     $('#Player1Score').text(Number($('#Player1Score').text()) + 1);
+
+    if ($('#Player1Score').text() === '10') {
+
+        $('#Winner').text('Tank 1 wins!!');
+        $("#WhoseTurn").toggle();
+        $(".main-button").toggle();
+        $("#overlay").toggle();
+    }
 }
 
 function updateScoreP2() {
+
     $('#Player2Score').text(Number($('#Player2Score').text()) + 1);
+
+    if ($('#Player2Score').text() === '10') {
+
+        $('#Winner').text('Tank 2 wins!!');
+        $("#WhoseTurn").toggle();
+        $(".main-button").toggle();
+        $("#overlay").toggle();
+
+    };
 }
+
+
+
 
 ///////////////////////////////////////////// Draw everything
 
@@ -485,6 +515,7 @@ function drawEverything() {
         launchCannonball(moveIndex2);
     }
     explosionAnimFun();
+
 
 }
 

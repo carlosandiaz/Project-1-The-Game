@@ -1,19 +1,17 @@
-
-
-
-body{
+body {
 	background-color: #A8B593;
 	margin: 0;
 }
 
-#tankWarsCanvas{
-	margin-top : 75px;
+#tankWarsCanvas {
+	margin-top: 75px;
 
 }
+
 canvas {
 	margin-top: 200px;
-    margin: auto;
-    display: block;
+	margin: auto;
+	display: block;
 }
 
 #Player1Score {
@@ -27,6 +25,11 @@ canvas {
 	font-weight: 700;
 }
 
+.swal-button:focus {
+	outline: none;
+	box-shadow: 0 0 0 1px #fff, 0 0 0 3px rgb(59, 68, 45, .29);
+}
+
 #Player2Score {
 	color: #4D573D;
 	font-family: 'East Sea Dokdo', cursive;
@@ -36,19 +39,141 @@ canvas {
 	left: 1090px;
 	z-index: 2;
 	font-weight: 700;
-	
+
 }
 
 #Title {
 	color: #4D573D;
 	font-family: 'East Sea Dokdo', cursive;
-	font-size: 400%;
+	font-size: 600%;
 	position: absolute;
 	top: 80px;
-	left: 750px;
+	left: 700px;
 	z-index: 2;
 	font-weight: 700;
+
+}
+
+.swal-title {
+
+	font-size: 90px;
+	font-family: 'East Sea Dokdo', cursive;
+	color: #4D573D;
+
+}
+
+.swal-button {
+
+	background-color: #4D573D;
+	color: #fff;
+	border: none;
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+	box-shadow: none;
+	border-radius: 100px;
+	font-weight: 600;
+	font-size: 18px;
+	padding: 18px 70px;
+	margin: 0;
+	font-weight: 600;
+	cursor: pointer;
+
+}
+
+.main-button {
 	
+	display: none;
+	position: absolute;
+	background-color: #4D573D;
+	color: #fff;
+	border: none;
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+	box-shadow: none;
+	border-radius: 100px;
+	font-weight: 600;
+	font-size: 18px;
+	padding: 18px 70px;
+	margin-top: 28%;
+	margin-left: 44%;
+	font-weight: 600;
+	cursor: pointer;
+
+}
+
+#overlay {
+
+	position: fixed;
+	/* Sit on top of the page content */
+	display: none;
+	/* Hidden by default */
+	width: 100%;
+	/* Full width (cover the whole page) */
+	height: 100%;
+	/* Full height (cover the whole page) */
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: rgba(0, 0, 0, 0.5);
+	/* Black background with opacity */
+	z-index: 2;
+	/* Specify a stack order in case you're using a different order for other elements */
+	cursor: pointer;
+	/* Add a pointer on hover */
+}
+
+
+.swal-button-container {
+	margin: 5px;
+	display: inline-block;
+	position: relative;
+	margin-right: 112px;
+	margin-bottom: 35px;
+}
+
+.swal-modal {
+	width: 478px;
+	opacity: 0;
+	pointer-events: none;
+	background-color: #fff;
+	text-align: center;
+	border-radius: 30px;
+	position: static;
+	margin: 20px auto;
+	display: inline-block;
+	vertical-align: middle;
+	-webkit-transform: scale(1);
+	transform: scale(1);
+	-webkit-transform-origin: 50% 50%;
+	transform-origin: 50% 50%;
+	z-index: 10001;
+	transition: opacity .2s, -webkit-transform .3s;
+	transition: transform .3s, opacity .2s;
+	transition: transform .3s, opacity .2s, -webkit-transform .3s;
+}
+
+.swal-button:not([disabled]):hover {
+	background-color: rgb(59, 68, 45);
+}
+
+.swal-button:active {
+	background-color: rgb(59, 68, 45);
+}
+
+
+.swal-text {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+	font-size: 18px;
+}
+
+#Winner {
+	color: #4D573D;
+	font-family: 'East Sea Dokdo', cursive;
+	font-size: 1100%;
+	position: absolute;
+	top: 320px;
+	left: 530px;
+	z-index: 2;
+	font-weight: 700;
 }
 
 #PlayerTeam {
@@ -63,14 +188,15 @@ canvas {
 }
 
 #WhoseTurn {
-	color: #4D573D;
+	color: #7C8D60;
 	font-family: 'East Sea Dokdo', cursive;
-	font-size: 250%;
+	font-size: 300%;
 	position: absolute;
-	top: 220px;
+	top: 890px;
 	left: 850px;
 	transform: translateX(-50%);
 	z-index: 2;
+	font-weight: 900;
 }
 
 #Controls {
@@ -86,3 +212,12 @@ canvas {
 }
 
 
+.swal-footer {
+	text-align: right;
+	padding-top: 13px;
+	margin-top: 23px;
+	padding: 13px 16px;
+	border-radius: inherit;
+	/* border-top-left-radius: 0; */
+	border-top-right-radius: 0;
+}
