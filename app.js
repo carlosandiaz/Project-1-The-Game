@@ -4,6 +4,7 @@ var turn, team, moveStep, angleStep, dirX, dirY, currIndex1, moveIndex1, moveInd
 function popupON() {
 
     swal({
+
         title: "Tank Wars",
         text: "First tank to score 10 attacks wins!",
         button: "Let's go!",
@@ -391,8 +392,6 @@ function detectCollision(x1, y1, r1, x2, y2, r2) {
 // };
 
 
-
-
 ///////////////////////////////////////////// Collision Detection cannonball and boundary
 
 function launchCannonball(index) {
@@ -474,6 +473,7 @@ function updateScoreP1() {
     if ($('#Player1Score').text() === '10') {
 
         $('#Winner').text('Tank 1 wins!!');
+        $("#Title").toggle();
         $("#WhoseTurn").toggle();
         $(".main-button").toggle();
         $("#overlay").toggle();
